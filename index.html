@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
+            color: #fff;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #1a1a1a; /* Default dark mode background */
+            background-image: linear-gradient(to right, #4f4f4f2e 1px, transparent 1px),
+                            linear-gradient(to bottom, #4f4f4f2e 1px, transparent 1px);
+            background-size: 14px 24px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 110%);
+            z-index: -1;
+        }
+
+        .dark body::before {
+            background: #1a1a1a; /* Dark mode */
+        }
+
+        .light body::before {
+            background: #ffffff; /* Light mode */
+        }
+
+        .light body {
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .add-btn, .theme-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            transition: background 0.3s;
+        }
+
+        .light .add-btn, .light .theme-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .add-btn:hover, .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .light .add-btn:hover, .light .theme-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .light .card {
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        .shortcuts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .shortcut {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: transform 0.2s, background 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .light .shortcut {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+
+        .shortcut:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .light .shortcut:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+            position: relative;
+            backdrop-filter: blur(10px);
+            color: #fff;
+        }
+
+        .light .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .light input {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #ccc;
+        }
+
+        .light input::placeholder {
+            color: #666;
+        }
+
+        .modal-content button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .light .modal-content button {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .modal-content button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .light .modal-content button:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .shortcuts {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="add-btn">Add Shortcut</button>
+            <button class="theme-btn" id="themeBtn">Toggle Theme</button>
+        </div>
+        <div class="card">
+            <div class="shortcuts" id="shortcuts">
+                <a href="https://ums.lpu.in/lpuums/StudentDashboard.aspx" class="shortcut">UMS</a>
+                <a href="https://ums.lpu.in/Placements/HomePlacementStudent.aspx" class="shortcut">Placement Portal</a>
+                <a href="https://internet.lpu.in/24online/webpages/client.jsp" class="shortcut">Internet</a>
+                <a href="https://www.geeksforgeeks.org/courses?source=google&medium=cpc&device=c&keyword=gfg&matchtype=e&campaignid=20039445781&adgroup=147845288105&gad_source=1&gclid=Cj0KCQjwna6_BhCbARIsALId2Z3vTkB0cu2IqYUWS3fI5xiI0YqtYIL--qZmsYfWvntgSG5nbH5JarQaApLKEALw_wcB" class="shortcut">GFG</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <div class="form-group">
+                <label for="shortcutName">Name:</label>
+                <input type="text" id="shortcutName" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="shortcutUrl">URL:</label>
+                <input type="text" id="shortcutUrl" placeholder="Enter URL">
+            </div>
+            <button onclick="addShortcut()">Add</button>
+        </div>
+    </div>
+
+    <script>
+        const shortcutsContainer = document.getElementById('shortcuts');
+        const modal = document.getElementById('modal');
+        const addBtn = document.querySelector('.add-btn');
+        const closeBtn = document.querySelector('.close');
+        const themeBtn = document.getElementById('themeBtn');
+
+        // Theme handling
+        const setTheme = (theme) => {
+            document.body.classList.remove('light', 'dark');
+            if (theme === 'light') {
+                document.body.classList.add('light');
+            } else if (theme === 'dark') {
+                document.body.classList.add('dark');
+            }
+            localStorage.setItem('theme', theme);
+        };
+
+        // Default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        themeBtn.onclick = () => {
+            const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        };
+
+        // Add new shortcut
+        function addShortcut() {
+            const name = document.getElementById('shortcutName').value;
+            const url = document.getElementById('shortcutUrl').value;
+            
+            if (name && url) {
+                const link = document.createElement('a');
+                link.href = url;
+                link.className = 'shortcut';
+                link.textContent = name;
+                shortcutsContainer.appendChild(link);
+                modal.style.display = 'none';
+                document.getElementById('shortcutName').value = '';
+                document.getElementById('shortcutUrl').value = '';
+                
+                // To make it permanent, add to the HTML
+                console.log(`Add this to HTML: <a href="${url}" class="shortcut">${name}</a>`);
+            }
+        }
+
+        addBtn.onclick = () => modal.style.display = 'block';
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        };
+    </script>
+</body>
+</html>
