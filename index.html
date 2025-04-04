@@ -18,11 +18,11 @@
             transition: all 0.3s;
             position: relative;
             color: #fff;
-            background: #000000; /* AMOLED black */
+            background: #000000;
         }
 
-        .light body {
-            background: #f5f5f5; /* Off-white */
+        body.light {
+            background: #f5f5f5;
             color: #333;
         }
 
@@ -43,7 +43,7 @@
             padding: 8px 16px;
             border: none;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.3); /* Slightly more opaque for visibility */
+            background: rgba(255, 255, 255, 0.3);
             color: #fff;
             cursor: pointer;
             font-weight: 500;
@@ -51,7 +51,7 @@
             transition: background 0.3s;
         }
 
-        .light .add-btn, .light .theme-btn {
+        body.light .add-btn, body.light .theme-btn {
             background: rgba(0, 0, 0, 0.3);
             color: #333;
         }
@@ -60,12 +60,12 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        .light .add-btn:hover, .light .theme-btn:hover {
+        body.light .add-btn:hover, body.light .theme-btn:hover {
             background: rgba(0, 0, 0, 0.4);
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.2); /* Slightly more opaque */
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 15px;
             padding: 20px;
             backdrop-filter: blur(10px);
@@ -73,7 +73,7 @@
             margin-bottom: 20px;
         }
 
-        .light .card {
+        body.light .card {
             background: rgba(0, 0, 0, 0.2);
         }
 
@@ -84,7 +84,7 @@
         }
 
         .shortcut {
-            background: rgba(255, 255, 255, 0.1); /* Reduced opacity for better contrast */
+            background: rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
             text-align: center;
@@ -95,7 +95,7 @@
             backdrop-filter: blur(5px);
         }
 
-        .light .shortcut {
+        body.light .shortcut {
             background: rgba(0, 0, 0, 0.1);
             color: #333;
         }
@@ -105,7 +105,7 @@
             transform: scale(1.05);
         }
 
-        .light .shortcut:hover {
+        body.light .shortcut:hover {
             background: rgba(0, 0, 0, 0.2);
         }
 
@@ -131,7 +131,7 @@
             color: #fff;
         }
 
-        .light .modal-content {
+        body.light .modal-content {
             background: rgba(0, 0, 0, 0.2);
             color: #333;
         }
@@ -162,7 +162,7 @@
             color: #fff;
         }
 
-        .light input {
+        body.light input {
             background: rgba(0, 0, 0, 0.3);
             color: #333;
         }
@@ -171,7 +171,7 @@
             color: #ccc;
         }
 
-        .light input::placeholder {
+        body.light input::placeholder {
             color: #666;
         }
 
@@ -186,7 +186,7 @@
             transition: background 0.3s;
         }
 
-        .light .modal-content button {
+        body.light .modal-content button {
             background: rgba(0, 0, 0, 0.3);
             color: #333;
         }
@@ -195,7 +195,7 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        .light .modal-content button:hover {
+        body.light .modal-content button:hover {
             background: rgba(0, 0, 0, 0.4);
         }
 
@@ -210,14 +210,13 @@
             }
         }
 
-        /* Fallback for browsers that don't support backdrop-filter */
         @supports not (backdrop-filter: blur(10px)) {
             .add-btn, .theme-btn, .card, .shortcut, .modal-content {
-                background: rgba(255, 255, 255, 0.3); /* More solid fallback for dark theme */
+                background: rgba(255, 255, 255, 0.3);
             }
 
-            .light .add-btn, .light .theme-btn, .light .card, .light .shortcut, .light .modal-content {
-                background: rgba(0, 0, 0, 0.3); /* More solid fallback for light theme */
+            body.light .add-btn, body.light .theme-btn, body.light .card, body.light .shortcut, body.light .modal-content {
+                background: rgba(0, 0, 0, 0.3);
             }
         }
     </style>
@@ -230,12 +229,7 @@
         </div>
         <div class="card">
             <div class="shortcuts" id="shortcuts">
-                <a href="https://ums.lpu.in/lpuums/StudentDashboard.aspx" class="shortcut">UMS</a>
-                <a href="https://ums.lpu.in/Placements/HomePlacementStudent.aspx" class="shortcut">Placement Portal</a>
-                <a href="https://internet.lpu.in/24online/webpages/client.jsp" class="shortcut">Internet</a>
-                <a href="https://www.geeksforgeeks.org/courses?source=google&medium=cpc&device=c&keyword=gfg&matchtype=e&campaignid=20039445781&adgroup=147845288105&gad_source=1&gclid=Cj0KCQjwna6lBhD3ARIsALNm9K5b7vG6FJtY0vX5P7_fVtF6PZcWg7xAV4u1bK5sA8ZTId2XbS9Z4a8aAsY0EALw_wcB" class="shortcut">GeeksforGeeks</a>
-                <a href="https://app.outlier.ai/en/expert" class="shortcut">Outliers</a>
-                <a href="https://fast.com/" class="shortcut">Speed Test</a>
+                <!-- Shortcuts will be dynamically loaded here -->
             </div>
         </div>
     </div>
@@ -262,13 +256,50 @@
         const closeBtn = document.querySelector('.close');
         const themeBtn = document.getElementById('themeBtn');
 
+        // Load shortcuts from localStorage on page load
+        function loadShortcuts() {
+            const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
+            shortcutsContainer.innerHTML = ''; // Clear existing shortcuts
+            shortcuts.forEach(shortcut => {
+                const link = document.createElement('a');
+                link.href = shortcut.url;
+                link.className = 'shortcut';
+                link.textContent = shortcut.name;
+                shortcutsContainer.appendChild(link);
+            });
+        }
+
+        // Save a new shortcut to localStorage
+        function saveShortcut(name, url) {
+            const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
+            shortcuts.push({ name, url });
+            localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
+        }
+
+        // Add new shortcut
+        function addShortcut() {
+            const name = document.getElementById('shortcutName').value;
+            const url = document.getElementById('shortcutUrl').value;
+
+            if (name && url) {
+                const link = document.createElement('a');
+                link.href = url;
+                link.className = 'shortcut';
+                link.textContent = name;
+                shortcutsContainer.appendChild(link);
+
+                saveShortcut(name, url);
+
+                modal.style.display = 'none';
+                document.getElementById('shortcutName').value = '';
+                document.getElementById('shortcutUrl').value = '';
+            }
+        }
+
+        // Theme handling
         const setTheme = (theme) => {
             document.body.classList.remove('light', 'dark');
-            if (theme === 'light') {
-                document.body.classList.add('light');
-            } else if (theme === 'dark') {
-                document.body.classList.add('dark');
-            }
+            document.body.classList.add(theme);
             localStorage.setItem('theme', theme);
         };
 
@@ -286,29 +317,14 @@
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         };
 
-        function addShortcut() {
-            const name = document.getElementById('shortcutName').value;
-            const url = document.getElementById('shortcutUrl').value;
-            
-            if (name && url) {
-                const link = document.createElement('a');
-                link.href = url;
-                link.className = 'shortcut';
-                link.textContent = name;
-                shortcutsContainer.appendChild(link);
-                modal.style.display = 'none';
-                document.getElementById('shortcutName').value = '';
-                document.getElementById('shortcutUrl').value = '';
-                
-                console.log(`Add this to HTML: <a href="${url}" class="shortcut">${name}</a>`);
-            }
-        }
-
+        // Modal handling
         addBtn.onclick = () => modal.style.display = 'block';
         closeBtn.onclick = () => modal.style.display = 'none';
         window.onclick = (e) => {
             if (e.target === modal) modal.style.display = 'none';
         };
+
+        window.onload = loadShortcuts;
     </script>
 </body>
 </html>
