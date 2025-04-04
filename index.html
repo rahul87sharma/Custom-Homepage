@@ -1,404 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Homepage</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Homepage</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-        body {
-            min-height: 100vh;
-            padding: 20px;
-            transition: all 0.3s;
-            position: relative;
-            color: #fff;
-            background: #000000;
-        }
+    body {
+      min-height: 100vh;
+      padding: 20px;
+      transition: all 0.3s;
+      position: relative;
+      color: #fff;
+      background: #000000;
+    }
 
-        body.light {
-            background: #f5f5f5;
-            color: #333;
-        }
+    body.light {
+      background: #f5f5f5;
+      color: #333;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        .add-btn, .theme-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            color: #fff;
-            cursor: pointer;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            transition: background 0.3s;
-        }
+    .add-btn, .theme-btn, .export-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      transition: background 0.3s;
+    }
 
-        body.light .add-btn, body.light .theme-btn {
-            background: rgba(0, 0, 0, 0.3);
-            color: #333;
-        }
+    body.light .add-btn, body.light .theme-btn, body.light .export-btn {
+      background: rgba(0, 0, 0, 0.3);
+      color: #333;
+    }
 
-        .add-btn:hover, .theme-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
+    .add-btn:hover, .theme-btn:hover, .export-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
 
-        body.light .add-btn:hover, body.light .theme-btn:hover {
-            background: rgba(0, 0, 0, 0.4);
-        }
+    body.light .add-btn:hover, body.light .theme-btn:hover, body.light .export-btn:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
 
-        body.light .card {
-            background: rgba(0, 0, 0, 0.2);
-        }
+    body.light .card {
+      background: rgba(0, 0, 0, 0.2);
+    }
 
-        .shortcuts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-        }
+    .shortcuts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 15px;
+    }
 
-        .shortcut {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-            transition: transform 0.2s, background 0.3s;
-            backdrop-filter: blur(5px);
-            display: block;
-        }
+    .shortcut {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: transform 0.2s, background 0.3s;
+      backdrop-filter: blur(5px);
+      display: block;
+    }
 
-        body.light .shortcut {
-            background: rgba(0, 0, 0, 0.1);
-            color: #333;
-        }
+    body.light .shortcut {
+      background: rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
 
-        .shortcut:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
+    .shortcut:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
 
-        body.light .shortcut:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
+    body.light .shortcut:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
 
-        .modal-content {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            margin: 50px auto;
-            position: relative;
-            backdrop-filter: blur(10px);
-            color: #fff;
-        }
+    .modal-content {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      margin: 50px auto;
+      position: relative;
+      backdrop-filter: blur(10px);
+      color: #fff;
+    }
 
-        body.light .modal-content {
-            background: rgba(0, 0, 0, 0.2);
-            color: #333;
-        }
+    body.light .modal-content {
+      background: rgba(0, 0, 0, 0.2);
+      color: #333;
+    }
 
-        .close {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            font-size: 24px;
-            cursor: pointer;
-        }
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.3);
-            color: #fff;
-        }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
 
-        body.light input {
-            background: rgba(0, 0, 0, 0.3);
-            color: #333;
-        }
+    body.light input {
+      background: rgba(0, 0, 0, 0.3);
+      color: #333;
+    }
 
-        input::placeholder {
-            color: #ccc;
-        }
+    input::placeholder {
+      color: #ccc;
+    }
 
-        body.light input::placeholder {
-            color: #666;
-        }
+    body.light input::placeholder {
+      color: #666;
+    }
 
-        .modal-content button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.3);
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-        body.light .modal-content button {
-            background: rgba(0, 0, 0, 0.3);
-            color: #333;
-        }
+    body.light .modal-content button {
+      background: rgba(0, 0, 0, 0.3);
+      color: #333;
+    }
 
-        .modal-content button:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
+    .modal-content button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
 
-        body.light .modal-content button:hover {
-            background: rgba(0, 0, 0, 0.4);
-        }
+    body.light .modal-content button:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-        @media (max-width: 480px) {
-            .header {
-                flex-direction: column;
-                gap: 10px;
-            }
+    @media (max-width: 480px) {
+      .header {
+        flex-direction: column;
+        gap: 10px;
+      }
 
-            .shortcuts {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
-        }
+      .shortcuts {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+    }
 
-        @supports not (backdrop-filter: blur(10px)) {
-            .add-btn, .theme-btn, .card, .shortcut, .modal-content {
-                background: rgba(255, 255, 255, 0.3);
-            }
+    @supports not (backdrop-filter: blur(10px)) {
+      .add-btn, .theme-btn, .card, .shortcut, .modal-content {
+        background: rgba(255, 255, 255, 0.3);
+      }
 
-            body.light .add-btn, body.light .theme-btn, body.light .card, body.light .shortcut, body.light .modal-content {
-                background: rgba(0, 0, 0, 0.3);
-            }
-        }
-    </style>
+      body.light .add-btn, body.light .theme-btn, body.light .card, body.light .shortcut, body.light .modal-content {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <button class="add-btn">Add Shortcut</button>
-            <button class="theme-btn" id="themeBtn">Toggle Theme</button>
-            <button class="theme-btn" onclick="exportShortcuts()">Download Shortcuts</button>
-        </div>
-        <div class="card">
-            <div class="shortcuts" id="shortcuts">
-                <!-- Shortcuts will be dynamically loaded here -->
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <button class="add-btn">Add Shortcut</button>
+      <button class="export-btn" id="exportBtn">Export Shortcuts</button>
+      <button class="theme-btn" id="themeBtn">Toggle Theme</button>
     </div>
-
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <span class="close">×</span>
-            <div class="form-group">
-                <label for="shortcutName">Name:</label>
-                <input type="text" id="shortcutName" placeholder="Enter name">
-            </div>
-            <div class="form-group">
-                <label for="shortcutUrl">URL:</label>
-                <input type="text" id="shortcutUrl" placeholder="Enter URL">
-            </div>
-            <button onclick="addShortcut()">Add</button>
-        </div>
+    <div class="card">
+      <div class="shortcuts" id="shortcuts">
+        <!-- Shortcuts load here -->
+      </div>
     </div>
+  </div>
 
-    <script>
-        const shortcutsContainer = document.getElementById('shortcuts');
-        const modal = document.getElementById('modal');
-        const addBtn = document.querySelector('.add-btn');
-        const closeBtn = document.querySelector('.close');
-        const themeBtn = document.getElementById('themeBtn');
-        let editIndex = null;
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close">×</span>
+      <div class="form-group">
+        <label for="shortcutName">Name:</label>
+        <input type="text" id="shortcutName" placeholder="Enter name" />
+      </div>
+      <div class="form-group">
+        <label for="shortcutUrl">URL:</label>
+        <input type="text" id="shortcutUrl" placeholder="Enter URL" />
+      </div>
+      <button onclick="addShortcut()">Add</button>
+    </div>
+  </div>
 
-        function loadShortcuts() {
-            const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
-            shortcutsContainer.innerHTML = '';
-            shortcuts.forEach((shortcut, index) => {
-                const wrapper = document.createElement('div');
-                wrapper.style.position = 'relative';
+  <script>
+    const shortcutsContainer = document.getElementById('shortcuts');
+    const modal = document.getElementById('modal');
+    const addBtn = document.querySelector('.add-btn');
+    const closeBtn = document.querySelector('.close');
+    const themeBtn = document.getElementById('themeBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    let editIndex = null;
 
-                const link = document.createElement('a');
-                link.href = shortcut.url;
-                link.className = 'shortcut';
-                link.textContent = shortcut.name;
-                wrapper.appendChild(link);
+    function loadShortcuts() {
+      const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
+      shortcutsContainer.innerHTML = '';
+      shortcuts.forEach((shortcut, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'relative';
+        wrapper.style.display = 'flex';
+        wrapper.style.alignItems = 'center';
+        wrapper.style.background = 'rgba(255,255,255,0.1)';
+        wrapper.style.borderRadius = '10px';
+        wrapper.style.overflow = 'hidden';
 
-                const menuBtn = document.createElement('div');
-                menuBtn.textContent = '⋮';
-                menuBtn.style.position = 'absolute';
-                menuBtn.style.top = '5px';
-                menuBtn.style.right = '10px';
-                menuBtn.style.cursor = 'pointer';
-                menuBtn.style.fontSize = '18px';
-                menuBtn.style.zIndex = '1';
+        const link = document.createElement('a');
+        link.href = shortcut.url;
+        link.className = 'shortcut';
+        link.style.flex = '1';
+        link.style.margin = 0;
+        link.style.borderRadius = 0;
+        link.style.textAlign = 'left';
+        link.style.paddingRight = '40px';
+        link.textContent = shortcut.name;
 
-                const menu = document.createElement('div');
-                menu.style.position = 'absolute';
-                menu.style.right = '0';
-                menu.style.top = '25px';
-                menu.style.background = 'rgba(0,0,0,0.7)';
-                menu.style.padding = '5px';
-                menu.style.borderRadius = '5px';
-                menu.style.display = 'none';
-                menu.style.zIndex = '10';
+        const menuArea = document.createElement('div');
+        menuArea.style.width = '25%';
+        menuArea.style.minWidth = '40px';
+        menuArea.style.height = '100%';
+        menuArea.style.display = 'flex';
+        menuArea.style.alignItems = 'center';
+        menuArea.style.justifyContent = 'center';
+        menuArea.style.cursor = 'pointer';
+        menuArea.style.position = 'absolute';
+        menuArea.style.top = 0;
+        menuArea.style.right = 0;
+        menuArea.style.zIndex = '2';
 
-                const editOption = document.createElement('div');
-                editOption.textContent = 'Edit';
-                editOption.style.color = '#fff';
-                editOption.style.cursor = 'pointer';
-                editOption.style.padding = '5px';
-                editOption.onclick = () => {
-                    document.getElementById('shortcutName').value = shortcut.name;
-                    document.getElementById('shortcutUrl').value = shortcut.url;
-                    editIndex = index;
-                    modal.style.display = 'block';
-                    menu.style.display = 'none';
-                };
+        const menuBtn = document.createElement('div');
+        menuBtn.textContent = '⋮';
+        menuBtn.style.fontSize = '20px';
+        menuBtn.style.color = 'inherit';
 
-                const deleteOption = document.createElement('div');
-                deleteOption.textContent = 'Delete';
-                deleteOption.style.color = '#fff';
-                deleteOption.style.cursor = 'pointer';
-                deleteOption.style.padding = '5px';
-                deleteOption.onclick = () => {
-                    shortcuts.splice(index, 1);
-                    localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
-                    loadShortcuts();
-                };
+        const menu = document.createElement('div');
+        menu.style.position = 'absolute';
+        menu.style.right = '10px';
+        menu.style.top = '35px';
+        menu.style.background = 'rgba(0,0,0,0.8)';
+        menu.style.padding = '5px';
+        menu.style.borderRadius = '5px';
+        menu.style.display = 'none';
+        menu.style.zIndex = '10';
 
-                menu.appendChild(editOption);
-                menu.appendChild(deleteOption);
-
-                menuBtn.onclick = () => {
-                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-                };
-
-                document.addEventListener('click', (e) => {
-                    if (!menu.contains(e.target) && e.target !== menuBtn) {
-                        menu.style.display = 'none';
-                    }
-                });
-
-                wrapper.appendChild(menuBtn);
-                wrapper.appendChild(menu);
-                shortcutsContainer.appendChild(wrapper);
-            });
-        }
-
-        function addShortcut() {
-            const name = document.getElementById('shortcutName').value;
-            const url = document.getElementById('shortcutUrl').value;
-            if (name && url) {
-                const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
-                if (editIndex !== null) {
-                    shortcuts[editIndex] = { name, url };
-                    editIndex = null;
-                } else {
-                    shortcuts.push({ name, url });
-                }
-                localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
-                loadShortcuts();
-                modal.style.display = 'none';
-                document.getElementById('shortcutName').value = '';
-                document.getElementById('shortcutUrl').value = '';
-            }
-        }
-
-        const setTheme = (theme) => {
-            document.body.classList.remove('light', 'dark');
-            document.body.classList.add(theme);
-            localStorage.setItem('theme', theme);
+        const editOption = document.createElement('div');
+        editOption.textContent = 'Edit';
+        editOption.style.color = '#fff';
+        editOption.style.cursor = 'pointer';
+        editOption.style.padding = '5px';
+        editOption.onclick = (e) => {
+          e.stopPropagation();
+          document.getElementById('shortcutName').value = shortcut.name;
+          document.getElementById('shortcutUrl').value = shortcut.url;
+          editIndex = index;
+          modal.style.display = 'block';
+          menu.style.display = 'none';
         };
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme);
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
-
-        themeBtn.onclick = () => {
-            const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        const deleteOption = document.createElement('div');
+        deleteOption.textContent = 'Delete';
+        deleteOption.style.color = '#fff';
+        deleteOption.style.cursor = 'pointer';
+        deleteOption.style.padding = '5px';
+        deleteOption.onclick = (e) => {
+          e.stopPropagation();
+          shortcuts.splice(index, 1);
+          localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
+          loadShortcuts();
         };
 
-        addBtn.onclick = () => {
-            editIndex = null;
-            document.getElementById('shortcutName').value = '';
-            document.getElementById('shortcutUrl').value = '';
-            modal.style.display = 'block';
+        menu.appendChild(editOption);
+        menu.appendChild(deleteOption);
+
+        menuBtn.onclick = (e) => {
+          e.stopPropagation();
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         };
 
-        closeBtn.onclick = () => modal.style.display = 'none';
-        window.onclick = (e) => {
-            if (e.target === modal) modal.style.display = 'none';
+        menuArea.onclick = (e) => {
+          e.stopPropagation();
+          menuBtn.click();
         };
 
-        function exportShortcuts() {
-            const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
-            const text = shortcuts.map(s => `${s.name}: ${s.url}`).join('\n');
-            const blob = new Blob([text], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'shortcuts.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
+        document.addEventListener('click', (e) => {
+          if (!menu.contains(e.target)) {
+            menu.style.display = 'none';
+          }
+        });
 
-        window.onload = loadShortcuts;
-    </script>
+        menuArea.appendChild(menuBtn);
+        wrapper.appendChild(link);
+        wrapper.appendChild(menuArea);
+        wrapper.appendChild(menu);
+        shortcutsContainer.appendChild(wrapper);
+      });
+    }
+
+    function saveShortcut(name, url) {
+      const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
+      if (editIndex !== null) {
+        shortcuts[editIndex] = { name, url };
+        editIndex = null;
+      } else {
+        shortcuts.push({ name, url });
+      }
+      localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
+      loadShortcuts();
+    }
+
+    function addShortcut() {
+      const name = document.getElementById('shortcutName').value;
+      const url = document.getElementById('shortcutUrl').value;
+      if (name && url) {
+        saveShortcut(name, url);
+        modal.style.display = 'none';
+        document.getElementById('shortcutName').value = '';
+        document.getElementById('shortcutUrl').value = '';
+      }
+    }
+
+    const setTheme = (theme) => {
+      document.body.classList.remove('light', 'dark');
+      document.body.classList.add(theme);
+      localStorage.setItem('theme', theme);
+    };
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+
+    themeBtn.onclick = () => {
+      const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    };
+
+    addBtn.onclick = () => {
+      modal.style.display = 'block';
+      editIndex = null;
+    };
+
+    closeBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    };
+
+    exportBtn.onclick = () => {
+      const shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
+      let text = shortcuts.map(s => `${s.name}: ${s.url}`).join('\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'shortcuts.txt';
+      link.click();
+    };
+
+    window.onload = loadShortcuts;
+  </script>
 </body>
 </html>
